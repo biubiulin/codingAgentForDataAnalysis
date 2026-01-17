@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+build/
+dist/
+
+# Environments
+.venv/
+.env
+.env.*
+.python-version
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific caches
+.accelerate/
+.gradio/
+.sbx/
+sbx.cache
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# Logs
+*.log

@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]
+ignore = [
+  # Allow unused imports in __init__.py for package exports
+  "F401",
+]
+
+[tool.ruff.isort]
+known-first-party = ["lib"]
+profile = "black"
