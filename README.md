@@ -2,6 +2,16 @@
 
 A coding agent that chats (CLI or Gradio UI), calls a Tuzi-compatible OpenAI Responses API, and executes code securely in an e2b sandbox.
 
+## Features
+
+- **Agent loop with tool calls**: `lib/coding_agent.py` drives an LLM loop, calling tools via `tools_schemas` and `tools`.
+- **Secure code execution**: `lib/tools.py` runs Python/Bash in an E2B `Sandbox`, returning text and images.
+- **Built-in tools**:
+  - `execute_code`, `execute_bash`
+  - `list_directory`, `read_file`, `write_file`, `replace_in_file`, `search_file_content`, `glob`
+- **Gradio UI**: `lib/ui.py` wraps the agent into an interactive interface.
+- **Message compression**: Long conversations are compressed automatically.
+
 ## Contents
 - **`demos.py`**: Demo functions `coding_agent_demo_cli()` and `coding_agent_demo_ui()`.
 - **`main.py`**: Unified entrypoint to run CLI or UI.
@@ -34,6 +44,19 @@ copy .env.example .env
 # Edit .env and set: E2B_API_KEY, TUZI_API_KEY, TUZI_BASE_URL
 ```
 
+## Environment variables
+
+Create a `.env` in the project root (loaded via `python-dotenv`):
+
+- Required
+  - `TUZI_API_KEY` — OpenAI-compatible API key
+  - `TUZI_BASE_URL` — OpenAI-compatible base URL
+- Recommended (UI/server behavior)
+  - `GRADIO_SHARE` — "true" or "false" (default false)
+  - `GRADIO_HEIGHT` — UI height, e.g. 800
+- Sandbox
+  - `E2B_API_KEY` — E2B Code Interpreter API key (if required by your setup)
+
 ## Run
 - **CLI chat** (terminal):
 ```powershell
@@ -53,12 +76,6 @@ python -m gradio app.py
 ```
 Application uses keys from `.env` loaded in `demos.py`/`app.py`.
 
-## Configuration
-Set these in `.env` (see `.env.example`):
-- `E2B_API_KEY`: e2b sandbox key
-- `TUZI_BASE_URL`: e.g., `https://api.tu-zi.com`
-- `TUZI_API_KEY`: Tuzi key
-- Optional UI vars: `GRADIO_SHARE`, `GRADIO_HEIGHT`, `AGENT_MODE`
 
 ## Notes
 - The agent streams via OpenAI Responses API and may call tools like `execute_code` to run code inside an e2b sandbox (`lib/tools.py`).
